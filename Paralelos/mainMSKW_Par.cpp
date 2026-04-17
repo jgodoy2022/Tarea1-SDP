@@ -3,9 +3,10 @@
 #include <fstream>
 #include <chrono>
 #include <cstdlib>
+#include <ctime>
 
 // Algoritmo
-void kWayMergeSort(std::vector<int>& A, int l, int r, int k);
+void KWayMergeSort_Par(std::vector<int>& A, int l, int r, int k);
 
 // Verificar orden
 bool isSorted(const std::vector<int>& A) {
@@ -20,7 +21,7 @@ long long runKWay(std::vector<int> A, int k, bool &ok) {
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    kWayMergeSort(A, 0, (int)A.size() - 1, k);
+    KWayMergeSort_Par(A, 0, (int)A.size() - 1, k);
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -31,10 +32,12 @@ long long runKWay(std::vector<int> A, int k, bool &ok) {
     ).count();
 }
 
-// MAIN
+// Main
 int main() {
+    
+    srand(time(NULL));
 
-    std::ofstream file("resultadosKWay.csv");
+    std::ofstream file("resultadosKWay_Par.csv");
 
     file << "n,k,repeticiones,tiempo_promedio_ms,proporcion_ordenado\n";
 
@@ -46,7 +49,7 @@ int main() {
     };
 
     std::vector<int> kValues = {
-        2, 4, 8, 16
+        4, 8, 16
     };
 
     int reps = 5;

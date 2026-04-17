@@ -1,0 +1,5 @@
+n,repeticiones,tiempo_promedio_ms,proporcion_ordenado
+1048576,5,100.8,1
+4194304,5,414.4,1
+16777216,5,1739,1
+67108864,5,7198.8,1

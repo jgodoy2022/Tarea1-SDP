@@ -3,6 +3,7 @@
 #include <fstream>
 #include <chrono>
 #include <cstdlib>
+#include <ctime>
 
 // Algoritmos
 void mergeSort(std::vector<int>& A, int l, int r);
@@ -29,10 +30,12 @@ long long runMergeSort(std::vector<int> A, bool &ok) {
     ).count();
 }
 
-// MAIN
+// Main
 int main() {
 
-    std::ofstream file("resultadosMS.csv");
+    srand(time(NULL));
+
+    std::ofstream file("resultadosMS_Sec.csv");
     file << "n,repeticiones,tiempo_promedio_ms,proporcion_ordenado\n";
 
     std::vector<int> sizes = {
