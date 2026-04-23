@@ -21,7 +21,7 @@ long long runKWay(std::vector<int>& A, int k, int p, bool &ok) {
     omp_set_num_threads(p);
     
     auto start = std::chrono::high_resolution_clock::now();
-    KWayMergeSort_Par(A, 0, (int)A.size() - 1, k, false); 
+    KWayMergeSort_Par(A, 0, (int)A.size() - 1, k, true); 
     auto end = std::chrono::high_resolution_clock::now();
     ok = isSorted(A);
 
@@ -30,7 +30,7 @@ long long runKWay(std::vector<int>& A, int k, int p, bool &ok) {
 
 int main() {
     srand(time(NULL));
-    std::ofstream file("resultadosKWay_Par.csv");
+    std::ofstream file("resultadosKWay_Completo.csv");
 
     // Agregamos la columna 'p' (procesadores)
     file << "n,k,p,repeticiones,tiempo_promedio_ms,proporcion_ordenado\n";

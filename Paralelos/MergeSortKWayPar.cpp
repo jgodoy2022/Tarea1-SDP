@@ -176,7 +176,7 @@ void mergeK_Par(std::vector<int>& A, int l, int r, int k){
     mergeK_Par(A,starts,ends);
 }
 
-void KWayMergeSort_Par(std::vector<int>& A, int l, int r, int k) {
+void KWayMergeSort_Par(std::vector<int>& A, int l, int r, int k, bool useParallelMerge) {
     if (l >= r) return;
 
     // Definir largo, tamaño del subarreglo y elementos excedentes
@@ -206,16 +206,13 @@ void KWayMergeSort_Par(std::vector<int>& A, int l, int r, int k) {
     #pragma omp parallel for if(n > threshold)
     for (int i = 0; i < k; i++) {
         if (starts[i] < ends[i]) {
-            KWayMergeSort_Par(A, starts[i], ends[i], k);
+            KWayMergeSort_Par(A, starts[i], ends[i], k, useParallelMerge);
         }
     }
     // Merge k-way
-    /*
-    if(n>threshold && false){
-        mergeK_Par(A, l, r, k);
+    if(n>threshold && useParallelMerge){
+        mergeK_Par(A, l, r, k); // Version 3.4
     }else{
-        mergeK_Sec(A, l, r, k);
+        mergeK_Sec(A, l, r, k); // Version 3.2
     }
-    */
-    mergeK_Sec(A, l, r, k);
 }

@@ -47,7 +47,7 @@ int main() {
     };
 
     std::vector<int> kValues = {
-        4, 8, 16
+        4, 8, 16, 32, 64, 128
     };
 
     int reps = 5;
