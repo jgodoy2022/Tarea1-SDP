@@ -58,7 +58,7 @@ void mergeK_Sec(std::vector<int>& A, int l, int r, int k) {
 /**
  * @brief Combina subarreglos ordenados de A usando paralelismo
  * @param A Puntero al arreglo original
- * @param stars Lista de comienzos de subarreglos
+ * @param starts Lista de comienzos de subarreglos
  * @param ends  Lista de finales de subarreglos (starts y ends deben tener mismo tamaño)
  * 
  */
@@ -97,7 +97,6 @@ void mergeK_Par(std::vector<int>& A, std::vector<int> starts, std::vector<int> e
 
     #pragma omp parallel for
     for(int i=0;i<pivots.size();i++){
-        temp[rank_sums[i]] = pivots[i];
         //merge sequencial de intervalos
         //idx guarda comienzo de cada banda
         std::vector<int> idx(k);
@@ -112,7 +111,7 @@ void mergeK_Par(std::vector<int>& A, std::vector<int> starts, std::vector<int> e
 
             // Encontrar el mínimo entre los k subarreglos
             for (int iii = 0; iii < k; iii++) {
-                if (idx[iii] <= ranks[i][iii])if(A[starts[iii]+idx[iii]] < minVal){
+                if (idx[iii] < ranks[i][iii])if(A[starts[iii]+idx[iii]] < minVal){
                     minIdx = iii;
                     minVal = A[starts[iii]+idx[iii]];
                 }
@@ -139,7 +138,7 @@ void mergeK_Par(std::vector<int>& A, std::vector<int> starts, std::vector<int> e
         int minVal = std::numeric_limits<int>::max();
         int minIdx = -1;
         for(int ii=0;ii<k;ii++){
-            if(idx[ii]<=ends[ii])if(A[starts[ii]+idx[ii]] < minVal){
+            if(starts[ii]+idx[ii]<=ends[ii])if(A[starts[ii]+idx[ii]] < minVal){
                 minVal= A[starts[ii]+idx[ii]];
                 minIdx = ii;
             }
